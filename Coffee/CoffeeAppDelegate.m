@@ -7,7 +7,6 @@
 //
 
 #import "CoffeeAppDelegate.h"
-
 #import "CoffeeViewController.h"
 
 @implementation CoffeeAppDelegate
@@ -16,6 +15,7 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
+    
     self.viewController = [[CoffeeViewController alloc] initWithNibName:@"CoffeeViewController" bundle:nil];
     self.window.rootViewController = self.viewController;
     [self.window makeKeyAndVisible];

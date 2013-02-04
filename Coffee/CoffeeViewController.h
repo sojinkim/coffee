@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface CoffeeViewController : UIViewController
+@interface CoffeeViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
 
 @end
