@@ -21,6 +21,7 @@
 		55126A4F16BFE05C001FEDE9 /* CoffeeViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55126A4D16BFE05C001FEDE9 /* CoffeeViewController.xib */; };
 		556AB40B16C2C0B8000B3D3B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556AB40A16C2C0B8000B3D3B /* MapKit.framework */; };
 		556AB40F16C2C0F6000B3D3B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AB40D16C2C0F6000B3D3B /* MapViewController.m */; };
+		556AB41416C2C6EC000B3D3B /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556AB41316C2C6EC000B3D3B /* MapViewController.xib */; };
 		557595C416BFE68C00F4FFBC /* FsqSearchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 557595C316BFE68C00F4FFBC /* FsqSearchClient.m */; };
 		557595C616BFEB6800F4FFBC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557595C516BFEB6800F4FFBC /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -45,6 +46,7 @@
 		556AB40A16C2C0B8000B3D3B /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
 		556AB40C16C2C0F6000B3D3B /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		556AB40D16C2C0F6000B3D3B /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
+		556AB41316C2C6EC000B3D3B /* MapViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MapViewController.xib; path = ../../../.Trash/MapViewController.xib; sourceTree = "<group>"; };
 		557595C216BFE68B00F4FFBC /* FsqSearchClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FsqSearchClient.h; sourceTree = "<group>"; };
 		557595C316BFE68C00F4FFBC /* FsqSearchClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FsqSearchClient.m; sourceTree = "<group>"; };
 		557595C516BFEB6800F4FFBC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -112,6 +114,7 @@
 				55126A4D16BFE05C001FEDE9 /* CoffeeViewController.xib */,
 				556AB40C16C2C0F6000B3D3B /* MapViewController.h */,
 				556AB40D16C2C0F6000B3D3B /* MapViewController.m */,
+				556AB41316C2C6EC000B3D3B /* MapViewController.xib */,
 				55126A3916BFE05C001FEDE9 /* Supporting Files */,
 			);
 			path = Coffee;
@@ -189,6 +192,7 @@
 				55126A4716BFE05C001FEDE9 /* Default@2x.png in Resources */,
 				55126A4916BFE05C001FEDE9 /* Default-568h@2x.png in Resources */,
 				55126A4F16BFE05C001FEDE9 /* CoffeeViewController.xib in Resources */,
+				556AB41416C2C6EC000B3D3B /* MapViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
