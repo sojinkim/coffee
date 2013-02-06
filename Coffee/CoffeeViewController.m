@@ -8,6 +8,7 @@
 
 #import "CoffeeViewController.h"
 #import "FsqSearchClient.h"
+#import "MapViewController.h"
 #import <AFNetworking.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -74,6 +75,14 @@
     cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ checkins / %@m ",[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"stats.checkinsCount"],[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"location.distance"]];
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    MapViewController *myMapViewController = [[MapViewController alloc] init];
+    myMapViewController.title = @"Map";
+    
+    [self.navigationController pushViewController:myMapViewController animated:YES];
 }
 
 - (CLLocationManager *)locationManager

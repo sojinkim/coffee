@@ -14,5 +14,6 @@
 
 @property (strong, nonatomic) UIWindow *window;
 @property (strong, nonatomic) CoffeeViewController *viewController;
+@property (strong, nonatomic) UINavigationController *navigationController;
 
 @end
