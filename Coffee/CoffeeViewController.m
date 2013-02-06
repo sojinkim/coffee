@@ -9,6 +9,7 @@
 #import "CoffeeViewController.h"
 #import "FsqSearchClient.h"
 #import "MapViewController.h"
+#import "MapViewAnnotation.h"
 #import <AFNetworking.h>
 #import <CoreLocation/CoreLocation.h>
 
@@ -80,7 +81,18 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MapViewController *myMapViewController = [[MapViewController alloc] init];
-    myMapViewController.title = @"Map";
+    
+    NSDictionary *selectedCoffeeShop = [self.coffeeShops objectAtIndex:[indexPath row]];
+   
+    NSString *name = [selectedCoffeeShop valueForKey:@"name"];
+    NSString *address = [selectedCoffeeShop valueForKeyPath:@"location.address"];
+    
+    NSNumber *latitude = [selectedCoffeeShop valueForKeyPath:@"location.lat"];
+    NSNumber *longitude = [selectedCoffeeShop valueForKeyPath:@"location.lng"];
+    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude.floatValue, longitude.floatValue);
+
+    myMapViewController.title = name;
+    myMapViewController.annotation = [[MapViewAnnotation alloc] initWithTitle:name andAddress:address andCoordinate:coordinate];
     
     [self.navigationController pushViewController:myMapViewController animated:YES];
 }

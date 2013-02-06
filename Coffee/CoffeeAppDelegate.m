@@ -17,6 +17,7 @@
     // Override point for customization after application launch.
     
     self.viewController = [[CoffeeViewController alloc] initWithNibName:@"CoffeeViewController" bundle:nil];
+    self.viewController.title = @"Cafes";
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     
     self.window.rootViewController = self.navigationController;

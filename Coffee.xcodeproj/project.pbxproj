@@ -22,6 +22,7 @@
 		556AB40B16C2C0B8000B3D3B /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 556AB40A16C2C0B8000B3D3B /* MapKit.framework */; };
 		556AB40F16C2C0F6000B3D3B /* MapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AB40D16C2C0F6000B3D3B /* MapViewController.m */; };
 		556AB41E16C2C833000B3D3B /* MapViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 556AB41A16C2C833000B3D3B /* MapViewController.xib */; };
+		556AB42116C2CEB1000B3D3B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */; };
 		557595C416BFE68C00F4FFBC /* FsqSearchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 557595C316BFE68C00F4FFBC /* FsqSearchClient.m */; };
 		557595C616BFEB6800F4FFBC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557595C516BFEB6800F4FFBC /* CoreLocation.framework */; };
 /* End PBXBuildFile section */
@@ -47,6 +48,8 @@
 		556AB40C16C2C0F6000B3D3B /* MapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewController.h; sourceTree = "<group>"; };
 		556AB40D16C2C0F6000B3D3B /* MapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewController.m; sourceTree = "<group>"; };
 		556AB41B16C2C833000B3D3B /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = MapViewController.xib; sourceTree = "<group>"; };
+		556AB41F16C2CEB1000B3D3B /* MapViewAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MapViewAnnotation.h; sourceTree = "<group>"; };
+		556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MapViewAnnotation.m; sourceTree = "<group>"; };
 		557595C216BFE68B00F4FFBC /* FsqSearchClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FsqSearchClient.h; sourceTree = "<group>"; };
 		557595C316BFE68C00F4FFBC /* FsqSearchClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FsqSearchClient.m; sourceTree = "<group>"; };
 		557595C516BFEB6800F4FFBC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -115,6 +118,8 @@
 				556AB40C16C2C0F6000B3D3B /* MapViewController.h */,
 				556AB40D16C2C0F6000B3D3B /* MapViewController.m */,
 				556AB41A16C2C833000B3D3B /* MapViewController.xib */,
+				556AB41F16C2CEB1000B3D3B /* MapViewAnnotation.h */,
+				556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */,
 				55126A3916BFE05C001FEDE9 /* Supporting Files */,
 			);
 			path = Coffee;
@@ -225,6 +230,7 @@
 				55126A4C16BFE05C001FEDE9 /* CoffeeViewController.m in Sources */,
 				557595C416BFE68C00F4FFBC /* FsqSearchClient.m in Sources */,
 				556AB40F16C2C0F6000B3D3B /* MapViewController.m in Sources */,
+				556AB42116C2CEB1000B3D3B /* MapViewAnnotation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
