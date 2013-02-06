@@ -16,7 +16,7 @@
 }
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (strong, nonatomic) NSArray *coffeeShops;
-@property (nonatomic, strong) CLLocationManager *locationManager;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -41,7 +41,7 @@
     
     AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         jsonResponse = [JSON valueForKeyPath:@"response.venues"];
-        [self parseResponseData];
+        [self sortResponseDataBy:0];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         NSLog(@"request failed with error %@", error);
@@ -70,8 +70,8 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     
-    cell.textLabel.text = [self.coffeeShops objectAtIndex:[indexPath row]];
-    cell.detailTextLabel.text = @"address";
+    cell.textLabel.text = [[self.coffeeShops objectAtIndex:[indexPath row]] valueForKey:@"name"];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ checkins / %@m ",[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"stats.checkinsCount"],[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"location.distance"]];
     
     return cell;
 }
@@ -84,14 +84,31 @@
     return _locationManager;
 }
 
-- (void)parseResponseData
+- (IBAction)sortBy:(UISegmentedControl *)sender
 {
-    for (NSDictionary *venue in jsonResponse) {
-        NSString *name = [venue valueForKey:@"name"];
-        
-        self.coffeeShops = [self.coffeeShops arrayByAddingObject:name];
-    }    
+    [self sortResponseDataBy:[sender selectedSegmentIndex]];
+}
 
+- (void)sortResponseDataBy:(int)criteria
+{
+    NSString* keyString;
+    if (0 == criteria) {
+        keyString = @"stats.checkinsCount";
+        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
+            NSNumber *first = [obj1 valueForKeyPath:keyString];
+            NSNumber *second = [obj2 valueForKeyPath:keyString];
+            return (NSComparisonResult)[second compare:first];
+        }];
+    }
+    else if (1 == criteria) {
+        keyString = @"location.distance";
+        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
+            NSNumber *first = [obj1 valueForKeyPath:keyString];
+            NSNumber *second = [obj2 valueForKeyPath:keyString];
+            return (NSComparisonResult)[first compare:second];
+        }];
+    }
+    
     [self.myTableView reloadData];
 }
 
