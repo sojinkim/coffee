@@ -17,6 +17,7 @@
     NSArray *jsonResponse;
 }
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (strong, nonatomic) NSArray *coffeeShops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -29,27 +30,8 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    FsqSearchClient *client = [FsqSearchClient sharedClient];
-    
     self.coffeeShops = [[NSArray alloc] init];
-    
-    // *** location simulation doesnt work ㅠㅠ
-    //CLLocationCoordinate2D currentCoordinate = self.locationManager.location.coordinate;
-    CLLocationCoordinate2D currentCoordinate = CLLocationCoordinate2DMake(37.541, 126.986);
-    
-    NSString *path = [NSString stringWithFormat:@"/v2/venues/search?ll=%g,%g&section=coffee&client_id=%@&client_secret=%@&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735&v=%@", currentCoordinate.latitude, currentCoordinate.longitude, fsqClientId, fsqClientSecret, apiVersion];
-    
-    NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
-    
-    AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        jsonResponse = [JSON valueForKeyPath:@"response.venues"];
-        [self sortResponseDataBy:0];
-        
-    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"request failed with error %@", error);
-    }];
-    
-    [opeation start];
+    [self searchForNearbyCoffeeShops];
 }
 
 - (void)didReceiveMemoryWarning
@@ -110,6 +92,36 @@
     [self sortResponseDataBy:[sender selectedSegmentIndex]];
 }
 
+- (IBAction)refresh:(id)sender
+{
+    [self searchForNearbyCoffeeShops];
+}
+
+- (void)searchForNearbyCoffeeShops
+{
+    FsqSearchClient *client = [FsqSearchClient sharedClient];
+    
+    // *** location simulation doesnt work ㅠㅠ
+    //CLLocationCoordinate2D currentCoordinate = self.locationManager.location.coordinate;
+    CLLocationCoordinate2D currentCoordinate = CLLocationCoordinate2DMake(37.541, 126.986);
+    
+    [self.spinner startAnimating];
+    
+    NSString *path = [NSString stringWithFormat:@"/v2/venues/search?ll=%g,%g&section=coffee&client_id=%@&client_secret=%@&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735&v=%@", currentCoordinate.latitude, currentCoordinate.longitude, fsqClientId, fsqClientSecret, apiVersion];
+    
+    NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
+    
+    AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
+        jsonResponse = [JSON valueForKeyPath:@"response.venues"];
+        [self sortResponseDataBy:0];
+        
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
+        NSLog(@"request failed with error %@", error);
+    }];
+    
+    [opeation start];
+}
+
 - (void)sortResponseDataBy:(int)criteria
 {
     NSString* keyString;
@@ -131,6 +143,7 @@
     }
     
     [self.myTableView reloadData];
+    [self.spinner stopAnimating];
 }
 
 @end
