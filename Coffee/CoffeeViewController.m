@@ -95,13 +95,10 @@
     [errorAlert show];
 }
 
-- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
     [self.locationManager stopUpdatingLocation];
-    
-    if (newLocation != nil) {
-        [self searchForCoffeeShopsNear:newLocation.coordinate];
-    }
+    [self searchForCoffeeShopsNear:((CLLocation *)locations.lastObject).coordinate];
 }
 
 - (IBAction)sortBy:(UISegmentedControl *)sender
