@@ -11,7 +11,7 @@
 #import "MapViewController.h"
 #import "MapViewAnnotation.h"
 #import <AFNetworking.h>
-#import <CoreLocation/CoreLocation.h>
+
 
 @interface CoffeeViewController () {
     NSArray *jsonResponse;
@@ -30,8 +30,9 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     
-    self.coffeeShops = [[NSArray alloc] init];
-    [self searchForNearbyCoffeeShops];
+    self.locationManager.delegate = self;
+    self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+    [self.locationManager startUpdatingLocation];    
 }
 
 - (void)didReceiveMemoryWarning
@@ -87,6 +88,22 @@
     return _locationManager;
 }
 
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    UIAlertView *errorAlert = [[UIAlertView alloc]
+                               initWithTitle:@"Error" message:@"Failed to Get Your Location" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [errorAlert show];
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateToLocation:(CLLocation *)newLocation fromLocation:(CLLocation *)oldLocation
+{
+    [self.locationManager stopUpdatingLocation];
+    
+    if (newLocation != nil) {
+        [self searchForCoffeeShopsNear:newLocation.coordinate];
+    }
+}
+
 - (IBAction)sortBy:(UISegmentedControl *)sender
 {
     [self sortResponseDataBy:[sender selectedSegmentIndex]];
@@ -94,16 +111,12 @@
 
 - (IBAction)refresh:(id)sender
 {
-    [self searchForNearbyCoffeeShops];
+    [self.locationManager startUpdatingLocation];
 }
 
-- (void)searchForNearbyCoffeeShops
+- (void)searchForCoffeeShopsNear:(CLLocationCoordinate2D)currentCoordinate
 {
     FsqSearchClient *client = [FsqSearchClient sharedClient];
-    
-    // *** location simulation doesnt work ㅠㅠ
-    //CLLocationCoordinate2D currentCoordinate = self.locationManager.location.coordinate;
-    CLLocationCoordinate2D currentCoordinate = CLLocationCoordinate2DMake(37.541, 126.986);
     
     [self.spinner startAnimating];
     
@@ -114,9 +127,13 @@
     AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         jsonResponse = [JSON valueForKeyPath:@"response.venues"];
         [self sortResponseDataBy:0];
+        [self.spinner stopAnimating];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-        NSLog(@"request failed with error %@", error);
+        [self.spinner stopAnimating];
+        UIAlertView *errorAlert = [[UIAlertView alloc]
+                                   initWithTitle:@"Error" message:@"Network error" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [errorAlert show];
     }];
     
     [opeation start];
@@ -143,7 +160,6 @@
     }
     
     [self.myTableView reloadData];
-    [self.spinner stopAnimating];
 }
 
 @end
