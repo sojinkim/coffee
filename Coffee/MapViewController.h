@@ -11,5 +11,6 @@
 #import "MapViewAnnotation.h"
 
 @interface MapViewController : UIViewController
-@property MapViewAnnotation *annotation;
+@property (strong, nonatomic) MapViewAnnotation *annotation;
+@property double distance;
 @end

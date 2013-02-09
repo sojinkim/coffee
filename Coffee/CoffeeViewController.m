@@ -73,9 +73,11 @@
     NSNumber *latitude = [selectedCoffeeShop valueForKeyPath:@"location.lat"];
     NSNumber *longitude = [selectedCoffeeShop valueForKeyPath:@"location.lng"];
     CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude.floatValue, longitude.floatValue);
+    double distance = [[selectedCoffeeShop valueForKeyPath:@"location.distance"] doubleValue];
 
     myMapViewController.title = name;
     myMapViewController.annotation = [[MapViewAnnotation alloc] initWithTitle:name andAddress:address andCoordinate:coordinate];
+    myMapViewController.distance = distance;
     
     [self.navigationController pushViewController:myMapViewController animated:YES];
 }
@@ -117,7 +119,9 @@
     
     [self.spinner startAnimating];
     
-    NSString *path = [NSString stringWithFormat:@"/v2/venues/search?ll=%g,%g&section=coffee&client_id=%@&client_secret=%@&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735&v=%@", currentCoordinate.latitude, currentCoordinate.longitude, fsqClientId, fsqClientSecret, apiVersion];
+    NSString *path = [NSString stringWithFormat:@"/v2/venues/search?ll=%g,%g&radius=5000&client_id=%@&client_secret=%@&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735&v=%@", currentCoordinate.latitude, currentCoordinate.longitude, fsqClientId, fsqClientSecret, apiVersion];
+    
+    NSLog(@"%@", path);
     
     NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
     

@@ -29,13 +29,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    MKCoordinateRegion region;
-    MKCoordinateSpan span;
-    span.latitudeDelta=0.02;
-    span.longitudeDelta=0.02;
-    
-    region.span=span;
-    region.center=self.annotation.coordinate;
+    MKCoordinateRegion region = MKCoordinateRegionMakeWithDistance(self.annotation.coordinate, self.distance * 2.0f, self.distance * 2.0f);
     
     [self.mapView addAnnotation:self.annotation];
     [self.mapView setRegion:region animated:YES];
