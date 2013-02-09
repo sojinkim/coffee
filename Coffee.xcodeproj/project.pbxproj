@@ -25,6 +25,8 @@
 		556AB42116C2CEB1000B3D3B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */; };
 		557595C416BFE68C00F4FFBC /* FsqSearchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 557595C316BFE68C00F4FFBC /* FsqSearchClient.m */; };
 		557595C616BFEB6800F4FFBC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557595C516BFEB6800F4FFBC /* CoreLocation.framework */; };
+		55B2889D16C6839C0086B8F1 /* coffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2889C16C6839C0086B8F1 /* coffee@2x.png */; };
+		55B2889F16C684990086B8F1 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2889E16C684990086B8F1 /* coffee.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -53,6 +55,8 @@
 		557595C216BFE68B00F4FFBC /* FsqSearchClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FsqSearchClient.h; sourceTree = "<group>"; };
 		557595C316BFE68C00F4FFBC /* FsqSearchClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FsqSearchClient.m; sourceTree = "<group>"; };
 		557595C516BFEB6800F4FFBC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		55B2889C16C6839C0086B8F1 /* coffee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coffee@2x.png"; path = "../coffee@2x.png"; sourceTree = "<group>"; };
+		55B2889E16C684990086B8F1 /* coffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coffee.png; path = ../coffee.png; sourceTree = "<group>"; };
 		7A6BCA305B734E85A8D34349 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E99F4C50B3F2489A9795A0E1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -128,6 +132,8 @@
 		55126A3916BFE05C001FEDE9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				55B2889E16C684990086B8F1 /* coffee.png */,
+				55B2889C16C6839C0086B8F1 /* coffee@2x.png */,
 				55126A3A16BFE05C001FEDE9 /* Coffee-Info.plist */,
 				55126A3B16BFE05C001FEDE9 /* InfoPlist.strings */,
 				55126A3E16BFE05C001FEDE9 /* main.m */,
@@ -198,6 +204,8 @@
 				55126A4916BFE05C001FEDE9 /* Default-568h@2x.png in Resources */,
 				55126A4F16BFE05C001FEDE9 /* CoffeeViewController.xib in Resources */,
 				556AB41E16C2C833000B3D3B /* MapViewController.xib in Resources */,
+				55B2889D16C6839C0086B8F1 /* coffee@2x.png in Resources */,
+				55B2889F16C684990086B8F1 /* coffee.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
