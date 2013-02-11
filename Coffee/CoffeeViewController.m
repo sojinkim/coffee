@@ -12,12 +12,14 @@
 #import "MapViewAnnotation.h"
 #import <AFNetworking.h>
 
+typedef enum {popularity=0, distance} SortBy;
 
 @interface CoffeeViewController () {
     NSArray *jsonResponse;
 }
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *sortOrder;
 @property (strong, nonatomic) NSArray *coffeeShops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
@@ -119,15 +121,18 @@
     
     [self.spinner startAnimating];
     
-    NSString *path = [NSString stringWithFormat:@"/v2/venues/search?ll=%g,%g&radius=5000&client_id=%@&client_secret=%@&categoryId=4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735&v=%@", currentCoordinate.latitude, currentCoordinate.longitude, fsqClientId, fsqClientSecret, apiVersion];
+    NSString *path = [NSString stringWithFormat:@"/v2/venues/search"];
     
-    NSLog(@"%@", path);
+    NSArray *keys = [[NSArray alloc] initWithObjects:@"ll", @"radius", @"client_id", @"client_secret", @"categoryId", @"v", nil];
+    NSArray *values = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%g,%g", currentCoordinate.latitude, currentCoordinate.longitude], [NSNumber numberWithInt:2000], fsqClientId, fsqClientSecret, @"4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735", apiVersion, nil];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
     
-    NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:nil];
+    NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:params];
+    NSLog(@"%@", request);
     
     AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
         jsonResponse = [JSON valueForKeyPath:@"response.venues"];
-        [self sortResponseDataBy:0];
+        [self sortResponseDataBy:self.sortOrder.selectedSegmentIndex];
         [self.spinner stopAnimating];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -140,10 +145,10 @@
     [opeation start];
 }
 
-- (void)sortResponseDataBy:(int)criteria
+- (void)sortResponseDataBy:(SortBy)criteria
 {
     NSString* keyString;
-    if (0 == criteria) {
+    if (popularity == criteria) {
         keyString = @"stats.checkinsCount";
         self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
             NSNumber *first = [obj1 valueForKeyPath:keyString];
@@ -151,7 +156,7 @@
             return (NSComparisonResult)[second compare:first];
         }];
     }
-    else if (1 == criteria) {
+    else if (distance == criteria) {
         keyString = @"location.distance";
         self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
             NSNumber *first = [obj1 valueForKeyPath:keyString];
