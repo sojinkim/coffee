@@ -12,16 +12,13 @@
 #import "MapViewAnnotation.h"
 #import <AFNetworking.h>
 
-typedef enum {popularity=0, distance} SortBy;
-
-@interface CoffeeViewController () {
-    NSArray *jsonResponse;
-}
+@interface CoffeeViewController () 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
 @property (weak, nonatomic) IBOutlet UIActivityIndicatorView *spinner;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *sortOrder;
 @property (strong, nonatomic) NSArray *coffeeShops;
 @property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) FsqSearchClient *client;
 
 @end
 
@@ -107,7 +104,8 @@ typedef enum {popularity=0, distance} SortBy;
 
 - (IBAction)sortBy:(UISegmentedControl *)sender
 {
-    [self sortResponseDataBy:[sender selectedSegmentIndex]];
+    self.coffeeShops = [self.client getSortedCoffeeShopListBy:sender.selectedSegmentIndex];
+    [self.myTableView reloadData];
 }
 
 - (IBAction)refresh:(id)sender
@@ -117,23 +115,17 @@ typedef enum {popularity=0, distance} SortBy;
 
 - (void)searchForCoffeeShopsNear:(CLLocationCoordinate2D)currentCoordinate
 {
-    FsqSearchClient *client = [FsqSearchClient sharedClient];
+    self.client = [FsqSearchClient sharedClient];
     
     [self.spinner startAnimating];
     
-    NSString *path = [NSString stringWithFormat:@"/v2/venues/search"];
-    
-    NSArray *keys = [[NSArray alloc] initWithObjects:@"ll", @"radius", @"client_id", @"client_secret", @"categoryId", @"v", nil];
-    NSArray *values = [[NSArray alloc] initWithObjects:[NSString stringWithFormat:@"%g,%g", currentCoordinate.latitude, currentCoordinate.longitude], [NSNumber numberWithInt:2000], fsqClientId, fsqClientSecret, @"4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735", apiVersion, nil];
-    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
-    
-    NSURLRequest *request = [client requestWithMethod:@"GET" path:path parameters:params];
+    NSURLRequest *request = [self.client makeNSURLRequestForCurrentLocation:currentCoordinate];
     NSLog(@"%@", request);
     
     AFJSONRequestOperation *opeation = [AFJSONRequestOperation JSONRequestOperationWithRequest:request success:^(NSURLRequest *request, NSHTTPURLResponse *response, id JSON) {
-        jsonResponse = [JSON valueForKeyPath:@"response.venues"];
-        [self sortResponseDataBy:self.sortOrder.selectedSegmentIndex];
+        self.coffeeShops = [self.client getCoffeeShopListFromJSON:JSON sortedBy:self.sortOrder.selectedSegmentIndex];
         [self.spinner stopAnimating];
+        [self.myTableView reloadData];
         
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
         [self.spinner stopAnimating];
@@ -143,29 +135,6 @@ typedef enum {popularity=0, distance} SortBy;
     }];
     
     [opeation start];
-}
-
-- (void)sortResponseDataBy:(SortBy)criteria
-{
-    NSString* keyString;
-    if (popularity == criteria) {
-        keyString = @"stats.checkinsCount";
-        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
-            NSNumber *first = [obj1 valueForKeyPath:keyString];
-            NSNumber *second = [obj2 valueForKeyPath:keyString];
-            return (NSComparisonResult)[second compare:first];
-        }];
-    }
-    else if (distance == criteria) {
-        keyString = @"location.distance";
-        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
-            NSNumber *first = [obj1 valueForKeyPath:keyString];
-            NSNumber *second = [obj2 valueForKeyPath:keyString];
-            return (NSComparisonResult)[first compare:second];
-        }];
-    }
-    
-    [self.myTableView reloadData];
 }
 
 @end

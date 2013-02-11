@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
+#import <CoreLocation/CoreLocation.h>
 
 extern NSString * const fsqClientId;
 extern NSString * const fsqClientSecret;
 extern NSString * const fsqBaseURLString;
 extern NSString * const apiVersion;
 
+typedef enum {popularity=0, distance} SortBy;
+
 @interface FsqSearchClient : AFHTTPClient
 + (FsqSearchClient *)sharedClient;
+- (NSURLRequest *)makeNSURLRequestForCurrentLocation:(CLLocationCoordinate2D)currentCoordinate;
+- (NSArray *)getCoffeeShopListFromJSON:(id)JSON sortedBy:(SortBy)criteria;
+- (NSArray *)getSortedCoffeeShopListBy:(SortBy)criteria;
 @end

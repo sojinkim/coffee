@@ -14,6 +14,13 @@ NSString * const fsqClientSecret = @"VK2GXUI3AEV0ISVVIW3MDVJ3RAUDUALEAOKPUNRMOOX
 NSString * const fsqBaseURLString = @"https://api.foursquare.com/";
 NSString * const apiVersion = @"20130204";
 
+@interface FsqSearchClient(){
+    NSArray *jsonResponse;
+}
+@property (strong, nonatomic) NSArray *coffeeShops;
+
+@end
+
 @implementation FsqSearchClient
 + (FsqSearchClient *)sharedClient
 {
@@ -36,6 +43,60 @@ NSString * const apiVersion = @"20130204";
     self.parameterEncoding = AFJSONParameterEncoding;
     
     return self;
+}
+
+- (NSURLRequest *)makeNSURLRequestForCurrentLocation:(CLLocationCoordinate2D)currentCoordinate
+{
+    NSString *path = [NSString stringWithFormat:@"/v2/venues/search"];
+    
+    NSArray *keys = [[NSArray alloc] initWithObjects:
+                     @"ll",
+                     @"radius",
+                     @"client_id",
+                     @"client_secret",
+                     @"categoryId",
+                     @"v",
+                     nil];
+    NSArray *values = [[NSArray alloc] initWithObjects:
+                       [NSString stringWithFormat:@"%g,%g", currentCoordinate.latitude, currentCoordinate.longitude],
+                       [NSNumber numberWithInt:2000],
+                       fsqClientId,
+                       fsqClientSecret,
+                       @"4bf58dd8d48988d16d941735,4bf58dd8d48988d1e0931735",
+                       apiVersion,
+                       nil];
+    NSDictionary *params = [[NSDictionary alloc] initWithObjects:values forKeys:keys];
+    
+    return [self requestWithMethod:@"GET" path:path parameters:params];
+}
+
+- (NSArray *)getCoffeeShopListFromJSON:(id)JSON sortedBy:(SortBy)criteria
+{
+    jsonResponse = [JSON valueForKeyPath:@"response.venues"];
+    return [self getSortedCoffeeShopListBy:criteria];
+}
+
+- (NSArray *)getSortedCoffeeShopListBy:(SortBy)criteria
+{
+    NSString* keyString;
+    if (popularity == criteria) {
+        keyString = @"stats.checkinsCount";
+        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
+            NSNumber *first = [obj1 valueForKeyPath:keyString];
+            NSNumber *second = [obj2 valueForKeyPath:keyString];
+            return (NSComparisonResult)[second compare:first];
+        }];
+    }
+    else if (distance == criteria) {
+        keyString = @"location.distance";
+        self.coffeeShops = [jsonResponse sortedArrayUsingComparator:^(id obj1, id obj2) {
+            NSNumber *first = [obj1 valueForKeyPath:keyString];
+            NSNumber *second = [obj2 valueForKeyPath:keyString];
+            return (NSComparisonResult)[first compare:second];
+        }];
+    }
+   
+    return self.coffeeShops;
 }
 
 @end
