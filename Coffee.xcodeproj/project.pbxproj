@@ -25,8 +25,8 @@
 		556AB42116C2CEB1000B3D3B /* MapViewAnnotation.m in Sources */ = {isa = PBXBuildFile; fileRef = 556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */; };
 		557595C416BFE68C00F4FFBC /* FsqSearchClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 557595C316BFE68C00F4FFBC /* FsqSearchClient.m */; };
 		557595C616BFEB6800F4FFBC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 557595C516BFEB6800F4FFBC /* CoreLocation.framework */; };
-		55B2889D16C6839C0086B8F1 /* coffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2889C16C6839C0086B8F1 /* coffee@2x.png */; };
-		55B2889F16C684990086B8F1 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2889E16C684990086B8F1 /* coffee.png */; };
+		55B2892E16C68FF60086B8F1 /* coffee.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2892C16C68FF60086B8F1 /* coffee.png */; };
+		55B2892F16C68FF60086B8F1 /* coffee@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 55B2892D16C68FF60086B8F1 /* coffee@2x.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -55,8 +55,8 @@
 		557595C216BFE68B00F4FFBC /* FsqSearchClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FsqSearchClient.h; sourceTree = "<group>"; };
 		557595C316BFE68C00F4FFBC /* FsqSearchClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FsqSearchClient.m; sourceTree = "<group>"; };
 		557595C516BFEB6800F4FFBC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		55B2889C16C6839C0086B8F1 /* coffee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "coffee@2x.png"; path = "../coffee@2x.png"; sourceTree = "<group>"; };
-		55B2889E16C684990086B8F1 /* coffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = coffee.png; path = ../coffee.png; sourceTree = "<group>"; };
+		55B2892C16C68FF60086B8F1 /* coffee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = coffee.png; sourceTree = "<group>"; };
+		55B2892D16C68FF60086B8F1 /* coffee@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "coffee@2x.png"; sourceTree = "<group>"; };
 		7A6BCA305B734E85A8D34349 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = SOURCE_ROOT; };
 		E99F4C50B3F2489A9795A0E1 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -81,7 +81,6 @@
 		55126A2616BFE05C001FEDE9 = {
 			isa = PBXGroup;
 			children = (
-				556AB40A16C2C0B8000B3D3B /* MapKit.framework */,
 				55126A3816BFE05C001FEDE9 /* Coffee */,
 				55126A3116BFE05C001FEDE9 /* Frameworks */,
 				55126A3016BFE05C001FEDE9 /* Products */,
@@ -100,6 +99,7 @@
 		55126A3116BFE05C001FEDE9 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				556AB40A16C2C0B8000B3D3B /* MapKit.framework */,
 				557595C516BFEB6800F4FFBC /* CoreLocation.framework */,
 				55126A3216BFE05C001FEDE9 /* UIKit.framework */,
 				55126A3416BFE05C001FEDE9 /* Foundation.framework */,
@@ -112,18 +112,10 @@
 		55126A3816BFE05C001FEDE9 /* Coffee */ = {
 			isa = PBXGroup;
 			children = (
-				557595C216BFE68B00F4FFBC /* FsqSearchClient.h */,
-				557595C316BFE68C00F4FFBC /* FsqSearchClient.m */,
-				55126A4116BFE05C001FEDE9 /* CoffeeAppDelegate.h */,
-				55126A4216BFE05C001FEDE9 /* CoffeeAppDelegate.m */,
-				55126A4A16BFE05C001FEDE9 /* CoffeeViewController.h */,
-				55126A4B16BFE05C001FEDE9 /* CoffeeViewController.m */,
-				55126A4D16BFE05C001FEDE9 /* CoffeeViewController.xib */,
-				556AB40C16C2C0F6000B3D3B /* MapViewController.h */,
-				556AB40D16C2C0F6000B3D3B /* MapViewController.m */,
-				556AB41A16C2C833000B3D3B /* MapViewController.xib */,
-				556AB41F16C2CEB1000B3D3B /* MapViewAnnotation.h */,
-				556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */,
+				55B2893016C693CE0086B8F1 /* Model */,
+				55B2893116C693D60086B8F1 /* View */,
+				55B2893216C693E40086B8F1 /* Controller */,
+				55B2893416C694B30086B8F1 /* assets */,
 				55126A3916BFE05C001FEDE9 /* Supporting Files */,
 			);
 			path = Coffee;
@@ -132,8 +124,6 @@
 		55126A3916BFE05C001FEDE9 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				55B2889E16C684990086B8F1 /* coffee.png */,
-				55B2889C16C6839C0086B8F1 /* coffee@2x.png */,
 				55126A3A16BFE05C001FEDE9 /* Coffee-Info.plist */,
 				55126A3B16BFE05C001FEDE9 /* InfoPlist.strings */,
 				55126A3E16BFE05C001FEDE9 /* main.m */,
@@ -143,6 +133,48 @@
 				55126A4816BFE05C001FEDE9 /* Default-568h@2x.png */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		55B2893016C693CE0086B8F1 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				557595C216BFE68B00F4FFBC /* FsqSearchClient.h */,
+				557595C316BFE68C00F4FFBC /* FsqSearchClient.m */,
+				556AB41F16C2CEB1000B3D3B /* MapViewAnnotation.h */,
+				556AB42016C2CEB1000B3D3B /* MapViewAnnotation.m */,
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		55B2893116C693D60086B8F1 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				55126A4D16BFE05C001FEDE9 /* CoffeeViewController.xib */,
+				556AB41A16C2C833000B3D3B /* MapViewController.xib */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
+		55B2893216C693E40086B8F1 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				55126A4116BFE05C001FEDE9 /* CoffeeAppDelegate.h */,
+				55126A4216BFE05C001FEDE9 /* CoffeeAppDelegate.m */,
+				55126A4A16BFE05C001FEDE9 /* CoffeeViewController.h */,
+				55126A4B16BFE05C001FEDE9 /* CoffeeViewController.m */,
+				556AB40C16C2C0F6000B3D3B /* MapViewController.h */,
+				556AB40D16C2C0F6000B3D3B /* MapViewController.m */,
+			);
+			name = Controller;
+			sourceTree = "<group>";
+		};
+		55B2893416C694B30086B8F1 /* assets */ = {
+			isa = PBXGroup;
+			children = (
+				55B2892C16C68FF60086B8F1 /* coffee.png */,
+				55B2892D16C68FF60086B8F1 /* coffee@2x.png */,
+			);
+			name = assets;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -204,8 +236,8 @@
 				55126A4916BFE05C001FEDE9 /* Default-568h@2x.png in Resources */,
 				55126A4F16BFE05C001FEDE9 /* CoffeeViewController.xib in Resources */,
 				556AB41E16C2C833000B3D3B /* MapViewController.xib in Resources */,
-				55B2889D16C6839C0086B8F1 /* coffee@2x.png in Resources */,
-				55B2889F16C684990086B8F1 /* coffee.png in Resources */,
+				55B2892E16C68FF60086B8F1 /* coffee.png in Resources */,
+				55B2892F16C68FF60086B8F1 /* coffee@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
