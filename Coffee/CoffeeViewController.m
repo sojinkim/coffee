@@ -11,6 +11,7 @@
 #import "MapViewController.h"
 #import "MapViewAnnotation.h"
 #import <AFNetworking.h>
+#import "CoffeeShop.h"
 
 @interface CoffeeViewController () 
 @property (weak, nonatomic) IBOutlet UITableView *myTableView;
@@ -54,8 +55,10 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:cellId];
     }
     
-    cell.textLabel.text = [[self.coffeeShops objectAtIndex:[indexPath row]] valueForKey:@"name"];
-    cell.detailTextLabel.text = [NSString stringWithFormat:@"%@ checkins / %@m ",[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"stats.checkinsCount"],[[self.coffeeShops objectAtIndex:[indexPath row]] valueForKeyPath:@"location.distance"]];
+    CoffeeShop *coffeeShop = [self.client getCoffeeShopAtIndex:[indexPath row]];
+    
+    cell.textLabel.text = coffeeShop.name;
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%d checkins / %gm ", coffeeShop.popularity, coffeeShop.distance];
     
     return cell;
 }
@@ -63,20 +66,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     MapViewController *myMapViewController = [[MapViewController alloc] init];
-    
-    NSDictionary *selectedCoffeeShop = [self.coffeeShops objectAtIndex:[indexPath row]];
-   
-    NSString *name = [selectedCoffeeShop valueForKey:@"name"];
-    NSString *address = [selectedCoffeeShop valueForKeyPath:@"location.address"];
-    
-    NSNumber *latitude = [selectedCoffeeShop valueForKeyPath:@"location.lat"];
-    NSNumber *longitude = [selectedCoffeeShop valueForKeyPath:@"location.lng"];
-    CLLocationCoordinate2D coordinate = CLLocationCoordinate2DMake(latitude.floatValue, longitude.floatValue);
-    double distance = [[selectedCoffeeShop valueForKeyPath:@"location.distance"] doubleValue];
 
-    myMapViewController.title = name;
-    myMapViewController.annotation = [[MapViewAnnotation alloc] initWithTitle:name andAddress:address andCoordinate:coordinate];
-    myMapViewController.distance = distance;
+    CoffeeShop *selectedCoffeeShop = [self.client getCoffeeShopAtIndex:[indexPath row]];
+    
+    myMapViewController.title = [selectedCoffeeShop name];
+    myMapViewController.annotation = [selectedCoffeeShop makeAnnotation];
+    myMapViewController.distance = [selectedCoffeeShop distance];
     
     [self.navigationController pushViewController:myMapViewController animated:YES];
 }

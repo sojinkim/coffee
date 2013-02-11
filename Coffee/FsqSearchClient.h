@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #import "AFHTTPClient.h"
 #import <CoreLocation/CoreLocation.h>
+#import "CoffeeShop.h"
 
 extern NSString * const fsqClientId;
 extern NSString * const fsqClientSecret;
@@ -22,4 +23,5 @@ typedef enum {popularity=0, distance} SortBy;
 - (NSURLRequest *)makeNSURLRequestForCurrentLocation:(CLLocationCoordinate2D)currentCoordinate;
 - (NSArray *)getCoffeeShopListFromJSON:(id)JSON sortedBy:(SortBy)criteria;
 - (NSArray *)getSortedCoffeeShopListBy:(SortBy)criteria;
+- (CoffeeShop *)getCoffeeShopAtIndex:(int)index;
 @end

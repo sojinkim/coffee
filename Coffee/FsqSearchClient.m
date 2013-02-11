@@ -99,4 +99,10 @@ NSString * const apiVersion = @"20130204";
     return self.coffeeShops;
 }
 
+- (CoffeeShop *)getCoffeeShopAtIndex:(int)index
+{
+    CoffeeShop *selectedCoffeeShop = [[CoffeeShop alloc] initWithInfo:[self.coffeeShops objectAtIndex:index]];
+    return selectedCoffeeShop;
+}
+
 @end
